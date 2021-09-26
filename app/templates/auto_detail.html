@@ -387,18 +387,14 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                {% for rent in rent_list %}
                                                                 <tr>
-                                                                    <th scope="row">1</th>
-                                                                    <td>{{ date_and_time_rent_bigin }}</td>
-                                                                    <td>{{ date_and_time_rent_end }}</td>
-                                                                    <td>{{ total_cost_of_rent }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">2</th>
-                                                                    <td>{{ date_and_time_rent_bigin }}</td>
-                                                                    <td>{{ date_and_time_rent_end }}</td>
-                                                                    <td>{{ total_cost_of_rent }}</td>
-                                                                </tr>
+                                                                    <th scope="row">{{rent.id}}</th>
+                                                                    <td>{{ rent.date_rent }}</td>
+                                                                    <td>{{ rent.date_free }}</td>
+                                                                    <td>{{ rent.cost_of_rent }} руб.</td>
+                                                                </tr>                                                            
+                                                                {% endfor %}
                                                             </tbody>
                                                         </table>
                                                     </div>

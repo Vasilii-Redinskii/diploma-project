@@ -1,6 +1,7 @@
 from app import app, db
-from app.models import Auto
+from app.models import Auto, Arenda
 from flask import render_template, request
+from datetime import datetime
 
 
 @app.route('/index')
@@ -25,10 +26,19 @@ def auto_detail(auto_id):
     
     if request.method == 'POST':
         if auto.in_rent_or_free:
+            date_rent = auto.date
+            time_rent = (datetime.now().replace(microsecond=0) - auto.date).seconds
+            cost_of_rent = round((time_rent/60)*auto.price,2)
+            auto.date = datetime.now().replace(microsecond=0)
             auto.in_rent_or_free = False
-        else:
-            auto.in_rent_or_free = True 
+            # Добавляем Arenda в базу данных
+            db.session.add(Arenda(auto_id = auto.id, date_free = datetime.now().replace(microsecond=0), date_rent=date_rent, in_rent_or_free = auto.in_rent_or_free, time_rent=time_rent, cost_of_rent=cost_of_rent))
 
+        else:
+            auto.date = datetime.now().replace(microsecond=0)
+            auto.in_rent_or_free = True 
+            time_rent = 0
+        
         db.session.commit()  
     
     #Вывод АККП
@@ -44,6 +54,8 @@ def auto_detail(auto_id):
     else:
         get_in_rent_or_free = "Свободен"
         get_button = "Арендовать"
+    #Вывод аренды
+    rent_list = Arenda.query.all()
 
     context = {
         'id': auto.id,
@@ -55,7 +67,8 @@ def auto_detail(auto_id):
         'img_url_3': auto.img_url_3,
         'img_url_4': auto.img_url_4,
         'in_rent_or_free': get_in_rent_or_free,
-        'get_button': get_button
+        'get_button': get_button,
+        'rent_list':rent_list,
         }
 
     return render_template('auto_detail.html', **context)

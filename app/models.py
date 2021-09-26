@@ -1,4 +1,5 @@
 from app import db
+from datetime import datetime
 
 
 class Auto(db.Model):
@@ -12,3 +13,16 @@ class Auto(db.Model):
     img_url_3 = db.Column(db.String(128))
     img_url_4 = db.Column(db.String(128))
     in_rent_or_free = db.Column(db.Boolean, default=False)
+    all_time_rent = db.Column(db.Float)
+    date = db.Column(db.DateTime, default=datetime.now)
+    total_cost_of_rent = db.Column(db.Float)
+    arenda = db.relationship('Arenda', backref='auto')
+
+class Arenda(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    auto_id = db.Column(db.Integer, db.ForeignKey('auto.id'))
+    date_rent = db.Column(db.DateTime, default=datetime.now)
+    date_free = db.Column(db.DateTime, default=datetime.now)
+    in_rent_or_free = db.Column(db.Boolean, default=False)
+    time_rent = db.Column(db.Float)
+    cost_of_rent = db.Column(db.Float)
