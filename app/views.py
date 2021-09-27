@@ -55,7 +55,7 @@ def auto_detail(auto_id):
         get_in_rent_or_free = "Свободен"
         get_button = "Арендовать"
     #Вывод аренды
-    rent_list = Arenda.query.all()
+    rent_list = Arenda.query.filter_by(auto_id = auto.id)
 
     context = {
         'id': auto.id,
@@ -72,6 +72,23 @@ def auto_detail(auto_id):
         }
 
     return render_template('auto_detail.html', **context)
+
+@app.route('/del_auto/<int:auto_id>', methods=['POST'])
+def del_auto(auto_id):
+
+    auto = Auto.query.get(auto_id)
+    rent_list = Arenda.query.filter_by(auto_id = auto.id)
+    context = {
+        'id': auto.id,
+        'name': auto.name
+        }
+    for rent in rent_list:
+        db.session.delete(rent)
+    
+    db.session.delete(auto)
+    db.session.commit()
+
+    return render_template('del_auto.html', **context)
 
 @app.route('/create_auto', methods=['POST', 'GET'])
 def create_auto():
