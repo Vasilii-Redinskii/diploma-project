@@ -56,6 +56,12 @@ def auto_detail(auto_id):
         get_button = "Арендовать"
     #Вывод аренды
     rent_list = Arenda.query.filter_by(auto_id = auto.id)
+    total_time = 0
+    for time in rent_list:
+        total_time += time.time_rent
+    auto.all_time_rent = total_time
+    auto.total_cost_of_rent = round(auto.price*total_time/60,2)
+    db.session.commit()
 
     context = {
         'id': auto.id,
@@ -69,6 +75,7 @@ def auto_detail(auto_id):
         'in_rent_or_free': get_in_rent_or_free,
         'get_button': get_button,
         'rent_list':rent_list,
+        'total_cost_of_rent': auto.total_cost_of_rent
         }
 
     return render_template('auto_detail.html', **context)
