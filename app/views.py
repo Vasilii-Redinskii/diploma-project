@@ -83,7 +83,7 @@ def del_auto(auto_id):
         'name': auto.name
         }
     for rent in rent_list:
-        db.session.delete(rent)
+        db.session.delete(rent) 
     
     db.session.delete(auto)
     db.session.commit()
@@ -137,12 +137,88 @@ def create_auto():
     elif request.method == 'GET':
 
         # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/create_auto
-        # В этом случае просто передаем в контекст имя метода
+        # В этом случае просто передаем в контекст имя метода и АККП по умолчанию
         context = {
             'method': 'GET',
             'transmission' : 'option1'
         }
     return render_template('create_auto.html', **context)
+
+@app.route('/change_auto/<int:auto_id>', methods=['POST', 'GET'])
+def change_auto(auto_id):
+
+    auto = Auto.query.get(auto_id)
+    
+    if request.method == 'POST':
+        
+        # Пришел запрос с методом POST (пользователь нажал на кнопку 'Изменить')
+        # Получаем новое название auto - это значение поля input с атрибутом name="name"
+        new_auto_name = request.form['name']
+
+        # Получаем новое описание auto - это значение поля input с атрибутом name="description"
+        new_auto_description = request.form['description']
+
+        # Получаем новую цену auto - это значение поля input с атрибутом name="price"
+        new_auto_price = request.form['price']
+
+        # Получаем новое АКПП auto - это значение поля input с атрибутом name="transmission"
+        new_auto_transmission = request.form['transmission']
+        if new_auto_transmission == 'option1':
+            new_auto_transmission = True
+        else:
+            new_auto_transmission = False
+        # Получаем новые картинки auto - это значение поля input с атрибутом name="img_url"
+        new_img_url_1 = request.form['img_url_1']  
+        new_img_url_2 = request.form['img_url_2']  
+        new_img_url_3 = request.form['img_url_3']  
+        new_img_url_4 = request.form['img_url_4']  
+
+        if new_auto_name:
+            auto.name = request.form['name']
+        if new_auto_price:
+            auto.price = request.form['price']
+        if new_auto_description:
+            auto.description = request.form['description']
+        auto.transmission = new_auto_transmission
+        if new_img_url_1:
+            auto.img_url_1 = request.form['img_url_1']
+        if new_img_url_2:
+            auto.img_url_2 = request.form['img_url_2']
+        if new_img_url_3:
+            auto.img_url_3 = request.form['img_url_3']
+        if new_img_url_4:
+            auto.img_url_4 = request.form['img_url_4']
+        # сохраняем изменения в базе
+        db.session.commit()
+
+        # Заполняем словарь контекста
+        context = {
+            'id': auto.id,
+            'name': auto.name,
+            'price': auto.price,
+            'auto_description' : auto.description,
+            'transmission' : auto.transmission,
+            'img_url_1': auto.img_url_1,
+            'img_url_2': auto.img_url_2,
+            'img_url_3': auto.img_url_3,
+            'img_url_4': auto.img_url_4
+        }
+
+    elif request.method == 'GET':
+
+        context = {
+            'id': auto.id,
+            'name': auto.name,
+            'price': auto.price,
+            'auto_description' : auto.description,
+            'transmission' : auto.transmission,
+            'img_url_1': auto.img_url_1,
+            'img_url_2': auto.img_url_2,
+            'img_url_3': auto.img_url_3,
+            'img_url_4': auto.img_url_4
+            }
+               
+    return render_template('change_auto.html', **context)
 
 @app.route('/rental_log')
 def rental_log():

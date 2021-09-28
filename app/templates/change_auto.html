@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
-    <title>Удаление авто</title>
+    <title>Изменение информации</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -11,23 +11,15 @@
         content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
 
-    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
 
-    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-1to10.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-horizontal.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-movie.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-pill.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-reversed.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-square.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/css-stars.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/bower_components/slick-carousel/css/slick.css">
-    <link rel="stylesheet" type="text/css" href="/bower_components/slick-carousel/css/slick-theme.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/fontawesome-stars.css">
 
     <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
 
@@ -40,7 +32,6 @@
 </head>
 
 <body>
-
     <div class="theme-loader">
         <div class="loader-track">
             <div class="preloader-wrapper">
@@ -91,6 +82,7 @@
             </div>
         </div>
     </div>
+
 
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
@@ -196,8 +188,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">{{ name }}</h5>
-
+                                            <h5 class="m-b-10">Изменение информации об автомобиле.</h5>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -205,7 +196,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="/"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Автомобиль удален из базы</a>
+                                            <li class="breadcrumb-item"><a href="#!">Изменение информации</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -219,29 +210,108 @@
 
                                     <div class="page-body">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12">
 
-                                                <div class="card product-detail-page">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Автомобиль: {{ name }}</h5>
+                                                        <span>Заполните поля для изменения информации об автомобиле в
+                                                            базе</span>
+                                                    </div>
                                                     <div class="card-block">
-                                                        <div class="row">
-                                                            
-                                                            <div class="col-lg-7 col-xs-12 product-detail"
-                                                                id="product-detail">
-                                                                <div class="row">
-                                                                    <div>
-                                                                        <div class="col-lg-12">
-                                                                            <span class="txt-muted d-block">ID авто:
-                                                                                <span>{{ id }}</span>
-                                                                            </span>                                                                           
-                                                                        </div>
-                                                                        <div class="col-lg-12">
-                                                                            <h4 class="pro-desc">{{ name }}
-                                                                            </h4>
-                                                                        </div> 
-                                                                    </div>
+                                                        <form id="main" method="post" action="/change_auto/{{ id }}">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Название</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control" name="name"
+                                                                        id="name" placeholder="{{ name }}" required>
+                                                                    <span class="messages"></span>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Стоимость аренды
+                                                                    в минуту</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="namber" class="form-control" id="price"
+                                                                        name="price" placeholder="{{ price }}" required>
+                                                                    <span class="messages"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Описание</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control"
+                                                                        name="description" id="description"
+                                                                        placeholder="{{auto_description}}" required>
+                                                                    <span class="messages"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <label class="col-sm-2 col-form-label">Автоматическая
+                                                                    КПП</label>
+                                                                <div class="col-sm-10">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <label class="form-check-label">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                name="transmission" id="transmission-1"
+                                                                                value="option1" checked> ДА
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <label class="form-check-label">
+                                                                            <input class="form-check-input" type="radio"
+                                                                                name="transmission" id="transmission-2"
+                                                                                value="option2"> НЕТ
+                                                                        </label>
+                                                                    </div>                                                                   
+                                                                    <span class="messages"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Картинка №1</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control"
+                                                                        name="img_url_1" id="img_url_1"
+                                                                        placeholder="{{img_url_1}}" required>
+                                                                    <span class="messages"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Картинка №2</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control"
+                                                                        name="img_url_2" id="img_url_2"
+                                                                        placeholder="{{img_url_2}}" required>
+                                                                    <span class="messages"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Картинка №3</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control"
+                                                                        name="img_url_3" id="img_url_3"
+                                                                        placeholder="{{img_url_3}}" required>
+                                                                    <span class="messages"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Картинка №4</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control"
+                                                                        name="img_url_4" id="img_url_4"
+                                                                        placeholder="{{img_url_4}}" required>
+                                                                    <span class="messages"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2"></label>
+                                                                <div class="col-sm-10">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary m-b-0">Изменить</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
                                                     </div>
                                                 </div>
 
@@ -254,13 +324,11 @@
                         </div>
                     </div>
 
+
                 </div>
             </div>
         </div>
     </div>
-
-
-
 
     <script type="text/javascript" src="/bower_components/jquery/js/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
@@ -273,13 +341,6 @@
 
     <script type="text/javascript" src="/bower_components/modernizr/js/modernizr.js"></script>
     <script type="text/javascript" src="/bower_components/modernizr/js/css-scrollbars.js"></script>
-
-    <script type="text/javascript" src="/bower_components/jquery-bar-rating/js/jquery.barrating.min.js"></script>
-    <script type="text/javascript" src="/assets/pages/rating/rating.js"></script>
-
-    <script type="text/javascript" src="/bower_components/slick-carousel/js/slick.min.js"></script>
-
-    <script type="text/javascript" src="/assets/pages/product-detail/product-detail.js"></script>
     <script src="/assets/js/pcoded.min.js"></script>
     <script src="/assets/js/vertical/vertical-layout.min.js"></script>
     <script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
