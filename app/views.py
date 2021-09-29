@@ -33,7 +33,9 @@ def auto_detail(auto_id):
             auto.in_rent_or_free = False
             # Добавляем Arenda в базу данных
             db.session.add(Arenda(auto_id = auto.id, date_free = datetime.now().replace(microsecond=0), date_rent=date_rent, in_rent_or_free = auto.in_rent_or_free, time_rent=time_rent, cost_of_rent=cost_of_rent))
-
+            
+            auto.count_rent = db.session.query(Arenda).filter_by(auto_id = auto.id).count()
+            
         else:
             auto.date = datetime.now().replace(microsecond=0)
             auto.in_rent_or_free = True 
@@ -59,7 +61,7 @@ def auto_detail(auto_id):
     total_time = 0
     for time in rent_list:
         total_time += time.time_rent
-    auto.all_time_rent = total_time
+    auto.all_time_rent = round(total_time/60,2)
     auto.total_cost_of_rent = round(auto.price*total_time/60,2)
     db.session.commit()
 
@@ -229,4 +231,9 @@ def change_auto(auto_id):
 
 @app.route('/rental_log')
 def rental_log():
-    return render_template('rental_log.html')
+    auto_list = Auto.query.all()
+        
+    context = {
+        'auto_list': auto_list,
+    }
+    return render_template('rental_log.html', **context)

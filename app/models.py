@@ -16,6 +16,7 @@ class Auto(db.Model):
     all_time_rent = db.Column(db.Float)
     date = db.Column(db.DateTime, default=datetime.now)
     total_cost_of_rent = db.Column(db.Float)
+    count_rent = db.Column(db.Integer)
     arenda = db.relationship('Arenda', backref='auto')
 
 class Arenda(db.Model):

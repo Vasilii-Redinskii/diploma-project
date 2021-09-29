@@ -241,20 +241,22 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
+                                                                            {% for auto in auto_list %}
                                                                             <tr>
                                                                                 <td class="pro-list-img">
-                                                                                    <img src="/assets/images/auto/auto1_1.jpg"
+                                                                                    <img src="/assets/images/auto/{{ auto.img_url_1 }}"
                                                                                         class="img-fluid" alt="tbl"
                                                                                         style="max-width: 64px;">
                                                                                 </td>
                                                                                 <td class="pro-name">
-                                                                                    <h6>{{ name_auto }}</h6>
-                                                                                    <span>{{ description_auto }}</span>
+                                                                                    <h6>{{ auto.name }}</h6>
+                                                                                    <span>{{ auto.description }}</span>
                                                                                 </td>
-                                                                                <td>{{ n }}</td>
-                                                                                <td>{{ n }}</td>
-                                                                                <td>{{ n }}</td>
+                                                                                <td>{{ auto.count_rent }}</td>
+                                                                                <td>{{ auto.all_time_rent }} мин.</td>
+                                                                                <td>{{ auto.total_cost_of_rent }} руб.</td>
                                                                             </tr>
+                                                                            {% endfor %}
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
