@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Карточка авто</title>
+    <title>Карточка конденсатора</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -125,8 +125,8 @@
                         <ul class="nav-right">
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                    <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>Иванова Эльза</span>
+                                    <img src="/assets/images/logo_alterra.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <span>ALTERRA</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -136,13 +136,13 @@
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="/create_auto">
-                                            Добавить авто
+                                        <a href="/create_condenser">
+                                            Добавить конденсатор
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="/rental_log">
-                                            Журнал аренды
+                                        <a href="/choose_condenser">
+                                            Подбор конденсатора
                                         </a>
                                     </li>
                                 </ul>
@@ -173,16 +173,16 @@
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="/create_auto" class="waves-effect waves-dark">
+                                    <a href="/create_condenser" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-layout-cta-right"></i><b>N</b></span>
-                                        <span class="pcoded-mtext">Добавить авто</span>
+                                        <span class="pcoded-mtext">Добавить конденсатор</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="/rental_log" class="waves-effect waves-dark">
+                                    <a href="/choose_condenser" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-car"></i><b>N</b></span>
-                                        <span class="pcoded-mtext">Журнал аренды</span>
+                                        <span class="pcoded-mtext">Подбор конденсатора</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -205,7 +205,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="/"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Карточка авто</a>
+                                            <li class="breadcrumb-item"><a href="#!">Карточка конденсатора</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -230,22 +230,12 @@
                                                                         <div id="big_banner">
                                                                             <div class="port_big_img">
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/{{ img_url_1 }}"
+                                                                                    src="/assets/images/condenser/{{ img_url_1 }}"
                                                                                     alt="Big_ Details">
                                                                             </div>
                                                                             <div class="port_big_img">
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/{{ img_url_2 }}"
-                                                                                    alt="Big_ Details">
-                                                                            </div>
-                                                                            <div class="port_big_img">
-                                                                                <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/{{ img_url_3 }}"
-                                                                                    alt="Big_ Details">
-                                                                            </div>
-                                                                            <div class="port_big_img">
-                                                                                <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/{{ img_url_4 }}"
+                                                                                    src="/assets/images/condenser/{{ img_url_2 }}"
                                                                                     alt="Big_ Details">
                                                                             </div>
                                                                         </div>
@@ -254,22 +244,12 @@
                                                                         <div id="small_banner">
                                                                             <div>
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/{{ img_url_1 }}"
+                                                                                    src="/assets/images/condenser/{{ img_url_1 }}"
                                                                                     alt="small-details">
                                                                             </div>
                                                                             <div>
                                                                                 <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/{{ img_url_2 }}"
-                                                                                    alt="small-details">
-                                                                            </div>
-                                                                            <div>
-                                                                                <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/{{ img_url_3 }}"
-                                                                                    alt="small-details">
-                                                                            </div>
-                                                                            <div>
-                                                                                <img class="img img-fluid"
-                                                                                    src="/assets/images/auto/{{ img_url_4 }}"
+                                                                                    src="/assets/images/condenser/{{ img_url_2 }}"
                                                                                     alt="small-details">
                                                                             </div>
                                                                         </div>
@@ -281,66 +261,95 @@
                                                                 <div class="row">
                                                                     <div>
                                                                         <div class="col-lg-12">
-                                                                            <span class="txt-muted d-block">ID авто:
-                                                                                <span>{{ id }}</span>
-                                                                            </span>
-                                                                            <span class="txt-muted d-block">Доступность:
-                                                                                <span
-                                                                                    class="text-primary">{{ in_rent_or_free }}</span>
-                                                                            </span>
-                                                                        </div>
-                                                                        <div class="col-lg-12">
                                                                             <h4 class="pro-desc">{{ name }}
                                                                             </h4>
                                                                         </div>
                                                                         <div class="col-lg-12">
-                                                                            <span class="txt-muted">Автоматическая КПП:
-                                                                                {{ transmission }}
+                                                                            <span class="txt-muted">Описание:
+                                                                                {{ description }}
                                                                             </span>
                                                                         </div>
-                                                                        <div
-                                                                            class="stars stars-example-css m-t-15 detail-stars col-lg-12">
-                                                                            <select id="product-view"
-                                                                                class="rating-star" name="rating"
-                                                                                autocomplete="off">
-                                                                                <option value="1">1</option>
-                                                                                <option value="2">2</option>
-                                                                                <option value="3">3</option>
-                                                                                <option value="4">4</option>
-                                                                                <option value="5">5</option>
-                                                                            </select>
+                                                                        <div class="col-lg-12">
+                                                                            <span class="txt-muted">Габариты (мм):
+                                                                                {{ length }} х {{ width }} х {{ height }}
+                                                                            </span>
                                                                         </div>
                                                                         <div class="col-lg-12">
-                                                                            <span
-                                                                                class="text-primary product-price">{{ price }}
-                                                                                руб/мин</span>
+                                                                            <span class="txt-muted">Вес (кг):
+                                                                                {{ weight }}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <span class="txt-muted">Установлены вентиляторы:
+                                                                                {{ fan }} - {{ number_fan }} шт.
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <span class="txt-muted">Максимальный уровень шума на 10м:
+                                                                                {{ noise }} д(Б)А
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <span class="txt-muted">Расход воздуха:
+                                                                                {{ air_flow }} куб.м в час
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            
                                                                             <hr>
-                                                                            <p>{{ auto_description }}
+                                                                            <p>
                                                                             </p>
                                                                             <hr>
                                                                         </div>
                                                                         <div
                                                                             class="col-lg-12 col-sm-12 mob-product-btn">
-                                                                            <form action="/auto_detail/{{ id }}" method="post"
-                                                                                class="d-inline-block">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-success waves-effect waves-light m-r-20">
-                                                                                    <i
-                                                                                        class="icofont icofont-cart-alt f-16"></i>
-                                                                                    <span
-                                                                                        class="m-l-10">{{get_button}}</span>
-                                                                                </button>
+                                                                            <form action="/condenser_detail/{{ id }}" method="post">
+                                                                               
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 col-form-label">Max. t.</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="number" class="form-control" id="max_temp"
+                                                                                            name="max_temp" placeholder="Максимальная температура" required>
+                                                                                        <span class="messages"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 col-form-label">Min. t.</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="number" class="form-control" id="min_temp"
+                                                                                            name="min_temp" placeholder="Минимальная температура" required>
+                                                                                        <span class="messages"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2 col-form-label">Производ</label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <input type="float" class="form-control"
+                                                                                            name="capacity" id="capacity"
+                                                                                            placeholder="Производительность конденсатора" required>
+                                                                                        <span class="messages"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                                                                            
+                                                                                <div class="form-group row">
+                                                                                    <label class="col-sm-2"></label>
+                                                                                    <div class="col-sm-10">
+                                                                                        <button type="submit"
+                                                                                            class="btn btn-primary m-b-0">Добавить точку</button>
+                                                                                    </div>
+                                                                                </div>
                                                                             </form>
-                                                                            <form action="/change_auto/{{ id }}" method="get"
+                                                                            
+                                                                            <form action="/change_condenser/{{ id }}" method="get"
                                                                                 class="d-inline-block">
                                                                                 <button type="submit"
                                                                                     class="btn btn-outline-primary waves-effect waves-light m-r-20">
                                                                                     <i
                                                                                         class="icofont icofont-edit f-16"></i>
-                                                                                    <span class="m-l-10">Изменить</span>
+                                                                                    <span class="m-l-10">Изменить инфо</span>
                                                                                 </button>
                                                                             </form>
-                                                                            <form action="/del_auto/{{ id }}" method="post"
+                                                                            <form action="/del_condenser/{{ id }}" method="post"
                                                                                 class="d-inline-block">
                                                                                 <button type="submit"
                                                                                     class="btn btn-outline-danger waves-effect waves-light m-r-20">
@@ -349,7 +358,7 @@
                                                                                     <span class="m-l-10">Удалить</span>
                                                                                 </button>
                                                                             </form>
-                                                                            </form>
+                                                                            
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -365,7 +374,7 @@
                                             <ul class="nav nav-tabs md-tabs tab-timeline" role="tablist">
                                                 <li class="nav-item">
                                                     <a class="nav-link active f-18 p-b-0" data-toggle="tab"
-                                                        href="#description" role="tab">История аренды</a>
+                                                        href="#description" role="tab">Указанные точки производительности, кВт, R404,dTsh35</a>
                                                     <div class="slide"></div>
                                                 </li>
                                             </ul>
@@ -381,18 +390,18 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th scope="col">#</th>
-                                                                    <th scope="col">Дата начала аренды</th>
-                                                                    <th scope="col">Дата завершения аренды</th>
-                                                                    <th scope="col">Общая стоимость аренды: {{total_cost_of_rent}} руб.</th>
+                                                                    <th scope="col">Минимальная температура</th>
+                                                                    <th scope="col">Максимальная температура</th>
+                                                                    <th scope="col">Производительность, кВт</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {% for rent in rent_list %}
+                                                                {% for point in capacity_list %}
                                                                 <tr>
-                                                                    <th scope="row">{{rent.id}}</th>
-                                                                    <td>{{ rent.date_rent }}</td>
-                                                                    <td>{{ rent.date_free }}</td>
-                                                                    <td>{{ rent.cost_of_rent }} руб.</td>
+                                                                    <th scope="row">{{point.id}}</th>
+                                                                    <td>{{ point.min_temp }}</td>
+                                                                    <td>{{ point.max_temp }}</td>
+                                                                    <td>{{ point.capacity_point }}</td>
                                                                 </tr>                                                            
                                                                 {% endfor %}
                                                             </tbody>

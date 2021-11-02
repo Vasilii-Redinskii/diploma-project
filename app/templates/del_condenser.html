@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Журнал аренды</title>
-
+    <title>Удаление авто</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -12,21 +11,23 @@
         content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="Codedthemes" />
 
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
 
-    <link rel="stylesheet" type="text/css" href="/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-1to10.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-horizontal.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-movie.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-pill.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-reversed.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/bars-square.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/css-stars.css">
 
-    <link href="/assets/pages/jquery.filer/css/jquery.filer.css" type="text/css" rel="stylesheet" />
-    <link href="/assets/pages/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css"
-        rel="stylesheet" />
-
-    <link rel="stylesheet" type="text/css" href="/assets/css/component.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/slick-carousel/css/slick.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/slick-carousel/css/slick-theme.css">
 
     <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
 
@@ -135,7 +136,7 @@
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="/create_auto">
+                                        <a href="/create_condenser">
                                             Добавить авто
                                         </a>
                                     </li>
@@ -172,7 +173,7 @@
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="/create_auto" class="waves-effect waves-dark">
+                                    <a href="/create_condenser" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-layout-cta-right"></i><b>N</b></span>
                                         <span class="pcoded-mtext">Добавить авто</span>
                                         <span class="pcoded-mcaret"></span>
@@ -195,7 +196,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Журнал аренды</h5>
+                                            <h5 class="m-b-10">{{ name }}</h5>
 
                                         </div>
                                     </div>
@@ -204,7 +205,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="/"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Журнал аренды</a>
+                                            <li class="breadcrumb-item"><a href="#!">Автомобиль удален из базы</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -218,47 +219,26 @@
 
                                     <div class="page-body">
                                         <div class="row">
-                                            <div class="col-sm-12">
+                                            <div class="col-md-12">
 
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h5>Журнал аренды</h5>
-
-                                                    </div>
+                                                <div class="card product-detail-page">
                                                     <div class="card-block">
-                                                        <div class="table-responsive">
-                                                            <div class="table-content">
-                                                                <div class="project-table">
-                                                                    <table id="e-product-list"
-                                                                        class="table table-striped dt-responsive nowrap">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Image</th>
-                                                                                <th>Автомобиль</th>
-                                                                                <th>Количество бронирований</th>
-                                                                                <th>Общее время аренды</th>
-                                                                                <th>Общая стоимость аренды</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            {% for auto in auto_list %}
-                                                                            <tr>
-                                                                                <td class="pro-list-img">
-                                                                                    <img src="/assets/images/auto/{{ auto.img_url_1 }}"
-                                                                                        class="img-fluid" alt="tbl"
-                                                                                        style="max-width: 64px;">
-                                                                                </td>
-                                                                                <td class="pro-name">
-                                                                                    <h6>{{ auto.name }}</h6>
-                                                                                    <span>{{ auto.description }}</span>
-                                                                                </td>
-                                                                                <td>{{ auto.count_rent }}</td>
-                                                                                <td>{{ auto.all_time_rent }} мин.</td>
-                                                                                <td>{{ auto.total_cost_of_rent }} руб.</td>
-                                                                            </tr>
-                                                                            {% endfor %}
-                                                                        </tbody>
-                                                                    </table>
+                                                        <div class="row">
+                                                            
+                                                            <div class="col-lg-7 col-xs-12 product-detail"
+                                                                id="product-detail">
+                                                                <div class="row">
+                                                                    <div>
+                                                                        <div class="col-lg-12">
+                                                                            <span class="txt-muted d-block">ID авто:
+                                                                                <span>{{ id }}</span>
+                                                                            </span>                                                                           
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <h4 class="pro-desc">{{ name }}
+                                                                            </h4>
+                                                                        </div> 
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -267,9 +247,6 @@
 
                                             </div>
                                         </div>
-
-
-
                                     </div>
 
                                 </div>
@@ -277,11 +254,11 @@
                         </div>
                     </div>
 
-
                 </div>
             </div>
         </div>
     </div>
+
 
 
 
@@ -297,19 +274,12 @@
     <script type="text/javascript" src="/bower_components/modernizr/js/modernizr.js"></script>
     <script type="text/javascript" src="/bower_components/modernizr/js/css-scrollbars.js"></script>
 
-    <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery-bar-rating/js/jquery.barrating.min.js"></script>
+    <script type="text/javascript" src="/assets/pages/rating/rating.js"></script>
 
-    <script src="/assets/pages/jquery.filer/js/jquery.filer.min.js"></script>
-    <script src="/assets/pages/filer/custom-filer.js" type="text/javascript"></script>
-    <script src="/assets/pages/filer/jquery.fileuploads.init.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/bower_components/slick-carousel/js/slick.min.js"></script>
 
-    <script src="/assets/js/classie.js"></script>
-    <script src="/assets/js/modalEffects.js"></script>
-
-    <script type="text/javascript" src="/assets/pages/product-list/product-list.js"></script>
+    <script type="text/javascript" src="/assets/pages/product-detail/product-detail.js"></script>
     <script src="/assets/js/pcoded.min.js"></script>
     <script src="/assets/js/vertical/vertical-layout.min.js"></script>
     <script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>

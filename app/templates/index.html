@@ -2,7 +2,7 @@
 <html lang="ru">
 
 <head>
-    <title>Твой каршеринг. Список авто</title>
+    <title>Подбор конденсатора ALTERRA</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -119,8 +119,8 @@
                         <ul class="nav-right">
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                    <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>Иванова Эльза</span>
+                                    <img src="/assets/images/logo_alterra.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <span>ALTERRA</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -130,13 +130,13 @@
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="/create_auto">
-                                            Добавить авто
+                                        <a href="/create_condenser">
+                                            Добавить конденсатор
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="/rental_log">
-                                            Журнал аренды
+                                        <a href="/choose_condenser">
+                                            Подбор конденсатора
                                         </a>
                                     </li>
                                 </ul>
@@ -167,16 +167,16 @@
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="/create_auto" class="waves-effect waves-dark">
+                                    <a href="/create_condenser" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-layout-cta-right"></i><b>N</b></span>
-                                        <span class="pcoded-mtext">Добавить авто</span>
+                                        <span class="pcoded-mtext">Добавить конденсатор</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="/rental_log" class="waves-effect waves-dark">
+                                    <a href="/choose_condenser" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-car"></i><b>N</b></span>
-                                        <span class="pcoded-mtext">Журнал аренды</span>
+                                        <span class="pcoded-mtext">Подбор конденсатора</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -190,8 +190,8 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Список автомобилей</h5>
-                                            <p class="m-b-0">Выбери любой и катайся с поминутной оплатой</p>
+                                            <h5 class="m-b-10">Список конденсаторов</h5>
+                                            <p class="m-b-0">Полный список о конденсаторов Алтерра</p>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -214,7 +214,7 @@
                                     <div class="page-body">
 
                                         <div class="row">
-                                            {% for auto in auto_list %}
+                                            {% for condenser in condenser_list %}
                                             <div class="col-xl-4 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="card prod-view">
                                                     <div class="prod-item text-center">
@@ -224,26 +224,17 @@
                                                                     class="btn btn-success btn-icon waves-effect waves-light m-r-15 hvr-bounce-in option-icon">
                                                                     <i class="icofont icofont-cart-alt f-20"></i>
                                                                 </button>
-                                                                <button type="button"
-                                                                    class="btn btn-primary btn-icon waves-effect waves-light m-r-15 hvr-bounce-in option-icon">
-                                                                    <i class="icofont icofont-eye-alt f-20"></i>
-                                                                </button>
-                                                                <button type="button"
-                                                                    class="btn btn-danger btn-icon waves-effect waves-light hvr-bounce-in option-icon">
-                                                                    <i class="icofont icofont-heart-alt f-20"></i>
-                                                                </button>
                                                             </div>
-                                                            <a href="#!" class="hvr-shrink">
-                                                                <img src="/assets/images/auto/{{ auto.img_url_1 }}"
-                                                                    class="img-fluid o-hidden" alt="auto1.jpg">
+                                                            <a href="/condenser_detail/{{ condenser.id }}" class="hvr-shrink">
+                                                                <img src="/assets/images/condenser/{{ condenser.img_url_1 }}"
+                                                                    class="img-fluid o-hidden" alt="condenser1.jpg">
                                                             </a>
-                                                            <div class="p-new"><a href="/auto_detail/{{ auto.id }}"> INFO </a></div>
+                                                            <div class="p-new"><a href="/condenser_detail/{{ condenser.id }}"> INFO </a></div>
                                                         </div>
                                                         <div class="prod-info">
                                                             <a href="#!" class="txt-muted">
-                                                                <h4>{{ auto.name }}</h4>
+                                                                <h4>{{ condenser.name }}</h4>
                                                             </a>
-                                                            <span class="prod-price">{{ auto.price }} р/мин</span>
                                                         </div>
                                                     </div>
                                                 </div>

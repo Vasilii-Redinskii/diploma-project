@@ -2,28 +2,39 @@ from app import db
 from datetime import datetime
 
 
-class Auto(db.Model):
+class Condenser(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
     description = db.Column(db.String())    
-    price = db.Column(db.Float)
-    transmission = db.Column(db.Boolean)
+    length = db.Column(db.Integer)
+    width = db.Column(db.Integer)
+    height = db.Column(db.Integer)
+    weight = db.Column(db.Integer)
+    fan = db.Column(db.String(128))
+    number_fan = db.Column(db.Integer)
+    air_flow = db.Column(db.Integer)
+    noise = db.Column(db.Integer)
+    low_noise = db.Column(db.Boolean)
     img_url_1 = db.Column(db.String(128))
     img_url_2 = db.Column(db.String(128))
-    img_url_3 = db.Column(db.String(128))
-    img_url_4 = db.Column(db.String(128))
-    in_rent_or_free = db.Column(db.Boolean, default=False)
-    all_time_rent = db.Column(db.Float)
-    date = db.Column(db.DateTime, default=datetime.now)
-    total_cost_of_rent = db.Column(db.Float)
-    count_rent = db.Column(db.Integer)
-    arenda = db.relationship('Arenda', backref='auto')
+    capacity_ = db.relationship('Capacity', backref='condenser')
 
-class Arenda(db.Model):
+class Capacity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    auto_id = db.Column(db.Integer, db.ForeignKey('auto.id'))
-    date_rent = db.Column(db.DateTime, default=datetime.now)
-    date_free = db.Column(db.DateTime, default=datetime.now)
-    in_rent_or_free = db.Column(db.Boolean, default=False)
-    time_rent = db.Column(db.Float)
-    cost_of_rent = db.Column(db.Float)
+    condenser_id = db.Column(db.Integer, db.ForeignKey('condenser.id'))
+    max_temp = db.Column(db.Integer)
+    min_temp = db.Column(db.Integer)
+    capacity_point = db.Column(db.Float)
+    delta_temp = db.Column(db.Integer)
+    check_name = db.Column(db.String(128), unique=True, )
+    
+
+class New_Capacity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    condenser_id = db.Column(db.Integer, db.ForeignKey('condenser.id'))
+    max_temp = db.Column(db.Integer)
+    min_temp = db.Column(db.Integer)
+    capacity_point = db.Column(db.Float)
+    delta_temp = db.Column(db.Integer)
+   
+    

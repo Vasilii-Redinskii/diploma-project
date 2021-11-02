@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
-    <title>Добавление автомобиля</title>
+    <title>Подбор конденсатора</title>
+
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -17,9 +18,15 @@
 
     <link rel="stylesheet" href="/assets/pages/waves/css/waves.min.css" type="text/css" media="all">
 
-    <link rel="stylesheet" type="text/css" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/bower_components/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="/bower_components/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css">
 
-    <link rel="stylesheet" type="text/css" href="/bower_components/jquery-bar-rating/css/fontawesome-stars.css">
+    <link href="/assets/pages/jquery.filer/css/jquery.filer.css" type="text/css" rel="stylesheet" />
+    <link href="/assets/pages/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" type="text/css"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/css/component.css">
 
     <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
 
@@ -32,6 +39,7 @@
 </head>
 
 <body>
+
     <div class="theme-loader">
         <div class="loader-track">
             <div class="preloader-wrapper">
@@ -83,7 +91,6 @@
         </div>
     </div>
 
-
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
@@ -117,8 +124,8 @@
                         <ul class="nav-right">
                             <li class="user-profile header-notification">
                                 <a href="#!" class="waves-effect waves-light">
-                                    <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>Иванова Эльза</span>
+                                    <img src="/assets/images/logo_alterra.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <span>ALTERRA</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -128,13 +135,13 @@
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="/create_auto">
-                                            Добавить авто
+                                        <a href="/create_condenser">
+                                            Добавить конденсатор
                                         </a>
                                     </li>
                                     <li class="waves-effect waves-light">
-                                        <a href="/rental_log">
-                                            Журнал аренды
+                                        <a href="/choose_condenser">
+                                            Подбор конденсатора
                                         </a>
                                     </li>
                                 </ul>
@@ -165,16 +172,16 @@
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="/create_auto" class="waves-effect waves-dark">
+                                    <a href="/create_condenser" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-layout-cta-right"></i><b>N</b></span>
-                                        <span class="pcoded-mtext">Добавить авто</span>
+                                        <span class="pcoded-mtext">Добавить конденсатор</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="/rental_log" class="waves-effect waves-dark">
+                                    <a href="/choose_condenser" class="waves-effect waves-dark">
                                         <span class="pcoded-micon"><i class="ti-car"></i><b>N</b></span>
-                                        <span class="pcoded-mtext">Журнал аренды</span>
+                                        <span class="pcoded-mtext">Подбор конденсатора</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -188,7 +195,8 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Добавление нового автомобиля</h5>
+                                            <h5 class="m-b-10">Подбор конденсатора</h5>
+
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -196,7 +204,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="/"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Добавление авто</a>
+                                            <li class="breadcrumb-item"><a href="#!">Подбор конденсатора</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -214,109 +222,92 @@
 
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Новый автомобиль</h5>
-                                                        <span>Заполните поля для добавления нового автомобиля в
-                                                            базу</span>
-                                                    </div>
-                                                    <div class="card-block">
-                                                        <form id="main" method="post" action="/create_auto">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Название</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control" name="name"
-                                                                        id="name" placeholder="Название" required>
-                                                                    <span class="messages"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Стоимость аренды
-                                                                    в минуту</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="namber" class="form-control" id="price"
-                                                                        name="price" placeholder="Стоимость" required>
-                                                                    <span class="messages"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Описание</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
-                                                                        name="description" id="description"
-                                                                        placeholder="Описание" required>
-                                                                    <span class="messages"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <label class="col-sm-2 col-form-label">Автоматическая
-                                                                    КПП</label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <label class="form-check-label">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="transmission" id="transmission-1"
-                                                                                value="option1" checked> ДА
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <label class="form-check-label">
-                                                                            <input class="form-check-input" type="radio"
-                                                                                name="transmission" id="transmission-2"
-                                                                                value="option2"> НЕТ
-                                                                        </label>
-                                                                    </div>                                                                   
-                                                                    <span class="messages"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Картинка №1</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
-                                                                        name="img_url_1" id="img_url_1"
-                                                                        placeholder="Название файла картинки с расширением" required>
-                                                                    <span class="messages"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Картинка №2</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
-                                                                        name="img_url_2" id="img_url_2"
-                                                                        placeholder="Название файла картинки с расширением" required>
-                                                                    <span class="messages"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Картинка №3</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
-                                                                        name="img_url_3" id="img_url_3"
-                                                                        placeholder="Название файла картинки с расширением" required>
-                                                                    <span class="messages"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2 col-form-label">Картинка №4</label>
-                                                                <div class="col-sm-10">
-                                                                    <input type="text" class="form-control"
-                                                                        name="img_url_4" id="img_url_4"
-                                                                        placeholder="Название файла картинки с расширением" required>
-                                                                    <span class="messages"></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-2"></label>
-                                                                <div class="col-sm-10">
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary m-b-0">Создать</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
+                                                        <h5>Подбор конденсатора</h5>
 
+                                                    </div>
+                                                    <form action="/choose_condenser" method="post">
+                                                                               
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">Max. t.</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="number" class="form-control" id="max_temp"
+                                                                    name="max_temp" placeholder="Максимальная температура" required>
+                                                                <span class="messages"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">Min. t.</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="number" class="form-control" id="min_temp"
+                                                                    name="min_temp" placeholder="Минимальная температура" required>
+                                                                <span class="messages"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">Производ</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="float" class="form-control"
+                                                                    name="capacity" id="capacity"
+                                                                    placeholder="Производительность конденсатора" required>
+                                                                <span class="messages"></span>
+                                                            </div>
+                                                        </div>
+                                                                                                                    
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2"></label>
+                                                            <div class="col-sm-10">
+                                                                <button type="submit"
+                                                                    class="btn btn-primary m-b-0">Задать точку</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+                                                    <div class="card-block">
+                                                        <div class="table-responsive">
+                                                            <div class="table-content">
+                                                                <div class="project-table">
+                                                                    <table id="e-product-list"
+                                                                        class="table table-striped dt-responsive nowrap">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Конденсатор</th>
+                                                                                <th>Производительность</th>
+                                                                                <th>Макс. температура</th>
+                                                                                <th>Мин. температура</th>
+                                                                                <th>Уровень шума</th>
+                                                                                <th>Расход воздуха</th>
+                                                                                <th></th>
+                                                                                
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {% for capacity in results %}
+                                                                            <tr>
+                                                                                <td class="pro-name">
+                                                                                    <h6>{{ capacity.condenser }}</h6>
+                                                                                </td>
+                                                                                <td>{{ capacity.capacity }}</td>
+                                                                                <td>{{ capacity.max_temp }}</td>
+                                                                                <td>{{ capacity.min_temp }}</td>
+                                                                                <td>{{ capacity.noise }} д(Б)А</td>
+                                                                                <td>{{ capacity.air_flow }}</td>
+                                                                                <td><img src="/assets/images/condenser/{{ capacity.img }}" height="100"
+                                                                                     alt="condenser1.jpg"></td>
+                                                                            </tr>
+                                                                            {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                             </div>
                                         </div>
+
+
+
                                     </div>
 
                                 </div>
@@ -330,6 +321,8 @@
         </div>
     </div>
 
+
+
     <script type="text/javascript" src="/bower_components/jquery/js/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/jquery-ui/js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/bower_components/popper.js/js/popper.min.js"></script>
@@ -341,6 +334,20 @@
 
     <script type="text/javascript" src="/bower_components/modernizr/js/modernizr.js"></script>
     <script type="text/javascript" src="/bower_components/modernizr/js/css-scrollbars.js"></script>
+
+    <script src="/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/bower_components/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/bower_components/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/bower_components/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+    <script src="/assets/pages/jquery.filer/js/jquery.filer.min.js"></script>
+    <script src="/assets/pages/filer/custom-filer.js" type="text/javascript"></script>
+    <script src="/assets/pages/filer/jquery.fileuploads.init.js" type="text/javascript"></script>
+
+    <script src="/assets/js/classie.js"></script>
+    <script src="/assets/js/modalEffects.js"></script>
+
+    <script type="text/javascript" src="/assets/pages/product-list/product-list.js"></script>
     <script src="/assets/js/pcoded.min.js"></script>
     <script src="/assets/js/vertical/vertical-layout.min.js"></script>
     <script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>

@@ -9,7 +9,7 @@ app = Flask(__name__,
             static_folder='static')
 
 # Подключаем базу данных к приложению
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../diploma_project.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../condenser_alterra.sqlite"
 
 # Отключаем вывод технических сообщений
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
