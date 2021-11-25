@@ -9,7 +9,7 @@ from datetime import datetime
 def index():
     
     # Получаем все записи из таблицы Condenser
-    condenser_list = Condenser.query.all()
+    condenser_list = Condenser.query.filter_by(low_noise = False)
 
     context = {
         'condenser_list': condenser_list,
@@ -70,24 +70,6 @@ def condenser_detail(Condenser_id):
         }
 
     return render_template('condenser_detail.html', **context)
-
-
-@app.route('/del_Condenser/<int:Condenser_id>', methods=['POST'])
-def del_Condenser(Condenser_id):
-
-    Condenser = Condenser.query.get(Condenser_id)
-    capacity_list = Capacity.query.filter_by(Condenser_id = Condenser.id)
-    context = {
-        'id': Condenser.id,
-        'name': Condenser.name
-        }
-    for rent in rent_list:
-        db.session.delete(rent) 
-    
-    db.session.delete(Condenser)
-    db.session.commit()
-
-    return render_template('del_Condenser.html', **context)
 
 
 @app.route('/create_condenser', methods=['POST', 'GET'])
@@ -184,33 +166,25 @@ def create_condenser():
     return render_template('create_condenser.html', **context)
 
 
-@app.route('/change_Condenser/<int:Condenser_id>', methods=['POST', 'GET'])
-def change_Condenser(Condenser_id):
-
-    Condenser = Condenser.query.get(Condenser_id)
-    
-            # Заполняем словарь контекста
-    context = {
-            'id': Condenser.id,
-            'name': Condenser.name,
-            
-        }
-              
-    return render_template('change_Condenser.html', **context)
-
-
 @app.route('/choose_condenser', methods=['POST', 'GET'])
 def choose_condenser():
     capacity_list = Capacity.query.all()
     results = []
     condenser_id = []
     coef = 0.0028
+    
+    # Функция проверяет что введеная производительность меньше производительности конденсатора
+    # в соответсвующей ей точке температур
     def add_line(Capa_point, capa_cond, max_temp):
+        # определяем дельту введеной максимальной температуры и максимальной температуры конденсатора
         delta_max_temp = max_temp - capa.max_temp
+        # индексируем мощьность конденсатора на дельту максимальных температур
         Capacity_point = capa_cond*delta_max_temp*coef + capa_cond
+        # определяем разность дельт температур конденсатора и введеной точки
         delta_delta = capa.delta_temp - new_delta_temp
+        
         if Capa_point <= Capacity_point:
-                       
+        # если введеная производительность меньше производительностиконденсатора добавляем точку в список               
                             results.append({'condenser': Condenser.query.get(capa.condenser_id).name, 
                                             'img': Condenser.query.get(capa.condenser_id).img_url_1,
                                             'air_flow': Condenser.query.get(capa.condenser_id).air_flow, 
@@ -220,17 +194,24 @@ def choose_condenser():
                                             'delta_max_temp':delta_max_temp,
                                             'max_temp': max_temp,
                                             'min_temp': Capacity_min_temp,
-                                            'delta': delta_delta})
+                                            'delta': delta_delta,
+                                            'condenser_id': Condenser.query.get(capa.condenser_id).id})
+                            # добавляем айди конденсатора в список исключений                
                             condenser_id.append(capa.condenser_id)
                                
 
+    # Определяет произодительность конденсатора, соответсвующую введеной дельте температур 
+    #по двум точкам заданых дельт температур конденсатора 
     def find_capa (delta_max_list, delta_min_list):
         delta_max = delta_max_list.delta_temp
         capa_max = delta_max_list.capacity_point
         delta_min = delta_min_list.delta_temp
         capa_min = delta_min_list.capacity_point
+        # определяем коэф дельты температур
         coef_delta = (new_delta_temp-delta_min)/(delta_max-delta_min)
+        # находим производительность конденсатора при текущей дельте температур
         capa_result = coef_delta*(capa_max-capa_min)+capa_min
+        # сравниваем производительность пользователя с полученной производительностью конденсатора
         add_line(Capacity_point,capa_result,Capacity_max_temp)
 
 
@@ -242,22 +223,33 @@ def choose_condenser():
         Capacity_min_temp = int(request.form['min_temp'])
         Capacity_point = float(request.form['capacity'])  
 
+        # Определяем дельту введенных температур
         new_delta_temp=Capacity_max_temp - Capacity_min_temp
         
+        # Проверяем равенство текущей дельты температур и дельты температур в списке  
+        # и ищем точки производительности конденсаторов больше введеной точки
         for capa in capacity_list:
             if new_delta_temp == capa.delta_temp:
                 add_line(Capacity_point, capa.capacity_point, Capacity_max_temp)
-        for capa in capacity_list:  
+        # снова проходим по списку производительностей конденсаторов
+        for capa in capacity_list:
+            # проверяем нет ли конденсатора в списке исключений  
             if capa.condenser_id not in condenser_id: 
+                # определяем на каком отрезке от центральной точки дельта т=15 будем искать нашу точку
                 if (new_delta_temp < 15 and capa.delta_temp <= 15):
+                    # введеная дельта т меньше 15, определяем список точек производительности конденсатора меньше 15
                     delta_max_list = Capacity.query.filter_by(delta_temp = 15, condenser_id = capa.condenser_id).first()
-                    delta_min_list = Capacity.query.filter_by(delta_temp = 10, condenser_id = capa.condenser_id).first()  
+                    delta_min_list = Capacity.query.filter_by(delta_temp = 10, condenser_id = capa.condenser_id).first() 
+                    # определяем производительность конденсатора в соответствующую нашей дельте температур 
                     find_capa(delta_max_list, delta_min_list)
 
                 elif (new_delta_temp > 15 and capa.delta_temp > 15):
+                     # введеная дельта т больше 15, определяем список точек производительности конденсатора больше 15
                     delta_min_list = Capacity.query.filter_by(delta_temp = 15, condenser_id = capa.condenser_id).first()
-                    delta_max_list = Capacity.query.filter_by(delta_temp = 20, condenser_id = capa.condenser_id).first()  
+                    delta_max_list = Capacity.query.filter_by(delta_temp = 20, condenser_id = capa.condenser_id).first() 
+                    # определяем производительность конденсатора в соответствующую нашей дельте температур  
                     find_capa(delta_max_list, delta_min_list)
+        # выводим полученный список конденсаторов с нужной производиткльностью
         context = {
                 'results' : results,
                 'cond_id' : condenser_id
