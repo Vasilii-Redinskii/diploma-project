@@ -171,7 +171,7 @@ def choose_condenser():
     capacity_list = Capacity.query.all()
     results = []
     condenser_id = []
-    coef = 0.0028
+    coef = 0.00275
     
     # Функция проверяет что введеная производительность меньше производительности конденсатора
     # в соответсвующей ей точке температур
@@ -221,7 +221,8 @@ def choose_condenser():
         
         Capacity_max_temp = int(request.form['max_temp'])
         Capacity_min_temp = int(request.form['min_temp'])
-        Capacity_point = float(request.form['capacity'])  
+        Capacity_point = float(request.form['capacity']) 
+        #Max_noise = int(request.form['max_noise']) 
 
         # Определяем дельту введенных температур
         new_delta_temp=Capacity_max_temp - Capacity_min_temp
