@@ -260,6 +260,7 @@ def choose_condenser():
 
         context = {
             'method': 'GET',
+            'capacity_list': capacity_list,
         }
           
     return render_template('choose_condenser.html', **context)

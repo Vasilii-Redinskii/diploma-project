@@ -216,23 +216,24 @@
                                                     <form action="/choose_condenser" method="post">
                                                                                
                                                         <div class="form-group row">
-                                                            <label class="col-sm-2 col-form-label">Max. t.</label>
+                                                            <label class="col-sm-2 col-form-label">&nbsp; t&deg; конденсации</label>
                                                             <div class="col-sm-10">
                                                                 <input type="number" class="form-control" id="max_temp"
-                                                                    name="max_temp" placeholder="Максимальная температура" required>
+                                                                    name="max_temp" placeholder="Температура конденсации" required>
                                                                 <span class="messages"></span>
                                                             </div>
+                                                            
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label class="col-sm-2 col-form-label">Min. t.</label>
+                                                            <label class="col-sm-2 col-form-label">&nbsp; t&deg; воздуха</label>
                                                             <div class="col-sm-10">
                                                                 <input type="number" class="form-control" id="min_temp"
-                                                                    name="min_temp" placeholder="Минимальная температура" required>
+                                                                    name="min_temp" placeholder="Температура наружного воздуха" required>
                                                                 <span class="messages"></span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label class="col-sm-2 col-form-label">Производ</label>
+                                                            <label class="col-sm-2 col-form-label">&nbsp;Производительность</label>
                                                             <div class="col-sm-10">
                                                                 <input type="float" class="form-control"
                                                                     name="capacity" id="capacity"
@@ -240,12 +241,26 @@
                                                                 <span class="messages"></span>
                                                             </div>
                                                         </div>
-                                                                                                                    
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">&nbsp;Производительность</label>
+                                                            <div class="col-sm-10">
+                                                                <select id="capacity" class="col-sm-2 col-form-label">
+                                                                    {% for x in capacity_list%} 
+                                                                    <option>{{ x.check_name }}</option>
+                                                                    {% endfor %}
+                                                                </select> 
+                                                                <span class="messages"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">&nbsp;&#916;t перегрева на нагнетании = 35&deg;C</label>
+                                                        </div>   
+                                                                                                          
                                                         <div class="form-group row">
                                                             <label class="col-sm-2"></label>
                                                             <div class="col-sm-10">
                                                                 <button type="submit"
-                                                                    class="btn btn-primary m-b-0">Задать точку</button>
+                                                                    class="btn btn-primary m-b-0">Выполнить подбор</button>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -260,8 +275,8 @@
                                                                             <tr>
                                                                                 <th>Конденсатор</th>
                                                                                 <th>Производительность</th>
-                                                                                <th>Макс. температура</th>
-                                                                                <th>Мин. температура</th>
+                                                                                <th>Температура конденсации</th>
+                                                                                <th>Температура наружного воздуха</th>
                                                                                 <th>Уровень шума</th>
                                                                                 <th>Расход воздуха</th>
                                                                                 <th></th>
