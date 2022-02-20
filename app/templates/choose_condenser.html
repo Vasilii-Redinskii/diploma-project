@@ -242,11 +242,11 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label class="col-sm-2 col-form-label">&nbsp;Производительность</label>
+                                                            <label class="col-sm-2 col-form-label">&nbsp;Тип фреона</label>
                                                             <div class="col-sm-10">
-                                                                <select id="capacity" class="col-sm-2 col-form-label">
-                                                                    {% for x in capacity_list%} 
-                                                                    <option>{{ x.check_name }}</option>
+                                                                <select id="freon" name="freon" class="col-sm-2 col-form-label">
+                                                                    {% for x in freon_list%} 
+                                                                    <option>{{ x.name }}</option>
                                                                     {% endfor %}
                                                                 </select> 
                                                                 <span class="messages"></span>
@@ -274,11 +274,12 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>Конденсатор</th>
-                                                                                <th>Производительность</th>
-                                                                                <th>Температура конденсации</th>
-                                                                                <th>Температура наружного воздуха</th>
-                                                                                <th>Уровень шума</th>
-                                                                                <th>Расход воздуха</th>
+                                                                                <th>Производ.</th>
+                                                                                <th>Температура<br>конденсации</th>
+                                                                                <th>Температура<br>наружного<br>воздуха</th>
+                                                                                <th>Уровень<br>шума</th>
+                                                                                <th>Расход<br>воздуха</th>
+                                                                                <th>Тип<br>фреона</th>
                                                                                 <th></th>
                                                                                 
                                                                             </tr>
@@ -294,11 +295,12 @@
                                                                                 <td>{{ capacity.min_temp }}</td>
                                                                                 <td>{{ capacity.noise }} д(Б)А</td>
                                                                                 <td>{{ capacity.air_flow }}</td>
+                                                                                <td>{{ freon }}</td>
                                                                                 <td>
                                                                                      <a href="/condenser_detail/{{ capacity.condenser_id }}" class="hvr-shrink">
                                                                                         <img src="/assets/images/condenser/{{ capacity.img }}" height="100"
                                                                                      alt="1.JPG">
-                                                                                    </a></td>     
+                                                                                    </a> </td>    
                                                                             </tr>
                                                                             {% endfor %}
                                                                         </tbody>

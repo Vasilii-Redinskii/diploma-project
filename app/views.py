@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import Condenser, Capacity, New_Capacity
+from app.models import Condenser, Capacity, Freon
 from flask import render_template, request
 from datetime import datetime
 
@@ -169,6 +169,7 @@ def create_condenser():
 @app.route('/choose_condenser', methods=['POST', 'GET'])
 def choose_condenser():
     capacity_list = Capacity.query.all()
+    freon_list = Freon.query.all()
     results = []
     condenser_id = []
     coef = 0.00275
@@ -221,7 +222,9 @@ def choose_condenser():
         
         Capacity_max_temp = int(request.form['max_temp'])
         Capacity_min_temp = int(request.form['min_temp'])
-        Capacity_point = float(request.form['capacity']) 
+        Capacity_point = float(request.form['capacity'])
+        Type_of_freon = request.form['freon']
+         
         #Max_noise = int(request.form['max_noise']) 
 
         # Определяем дельту введенных температур
@@ -253,14 +256,17 @@ def choose_condenser():
         # выводим полученный список конденсаторов с нужной производиткльностью
         context = {
                 'results' : results,
-                'cond_id' : condenser_id
+                'cond_id' : condenser_id,
+                'freon_list': freon_list,
+                'freon': Type_of_freon
                 }
 
     elif request.method == 'GET':
 
         context = {
             'method': 'GET',
-            'capacity_list': capacity_list,
+            'freon_list': freon_list
         }
           
     return render_template('choose_condenser.html', **context)
+

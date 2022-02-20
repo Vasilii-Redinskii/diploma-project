@@ -27,14 +27,9 @@ class Capacity(db.Model):
     capacity_point = db.Column(db.Float)
     delta_temp = db.Column(db.Integer)
     check_name = db.Column(db.String(128), unique=True, )
-    
 
-class New_Capacity(db.Model):
+class Freon(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    condenser_id = db.Column(db.Integer, db.ForeignKey('condenser.id'))
-    max_temp = db.Column(db.Integer)
-    min_temp = db.Column(db.Integer)
-    capacity_point = db.Column(db.Float)
-    delta_temp = db.Column(db.Integer)
-   
+    name = db.Column(db.String(128), unique=True, )
+    coef = db.Column(db.Float)
     
