@@ -253,6 +253,28 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">&nbsp;Переохлаждение</label>
+                                                            <div class="col-sm-10">
+                                                                <select id="cool" name="cool" class="col-sm-2 col-form-label">
+                                                                    {% for x in cool_list%} 
+                                                                    <option>{{ x.name }}</option>
+                                                                    {% endfor %}
+                                                                </select> 
+                                                                <span class="messages"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">&nbsp;Относительная влажность</label>
+                                                            <div class="col-sm-10">
+                                                                <select id="hum" name="hum" class="col-sm-2 col-form-label">
+                                                                    {% for x in hum_list%} 
+                                                                    <option>{{ x.name }}</option>
+                                                                    {% endfor %}
+                                                                </select> 
+                                                                <span class="messages"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
                                                             <label class="col-sm-2 col-form-label">&nbsp;&#916;t перегрева на нагнетании = 35&deg;C</label>
                                                         </div>   
                                                                                                           
@@ -280,6 +302,8 @@
                                                                                 <th>Уровень<br>шума</th>
                                                                                 <th>Расход<br>воздуха</th>
                                                                                 <th>Тип<br>фреона</th>
+                                                                                <th>Переохл.</th>
+                                                                                <th>Влажность</th>
                                                                                 <th></th>
                                                                                 
                                                                             </tr>
@@ -296,6 +320,8 @@
                                                                                 <td>{{ capacity.noise }} д(Б)А</td>
                                                                                 <td>{{ capacity.air_flow }}</td>
                                                                                 <td>{{ freon }}</td>
+                                                                                <td>{{ cool }}</td>
+                                                                                <td>{{ hum }}</td>
                                                                                 <td>
                                                                                      <a href="/condenser_detail/{{ capacity.condenser_id }}" class="hvr-shrink">
                                                                                         <img src="/assets/images/condenser/{{ capacity.img }}" height="100"

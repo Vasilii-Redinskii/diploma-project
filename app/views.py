@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import Condenser, Capacity, Freon
+from app.models import Condenser, Capacity, Freon, Undercooling, Humidity
 from flask import render_template, request
 from datetime import datetime
 
@@ -170,6 +170,8 @@ def create_condenser():
 def choose_condenser():
     capacity_list = Capacity.query.all()
     freon_list = Freon.query.all()
+    cool_list = Undercooling.query.all()
+    hum_list = Humidity.query.all()
     results = []
     condenser_id = []
     coef = 0.00275
@@ -179,8 +181,8 @@ def choose_condenser():
     def add_line(Capa_point, capa_cond, max_temp):
         # определяем дельту введеной максимальной температуры и максимальной температуры конденсатора
         delta_max_temp = max_temp - capa.max_temp
-        # индексируем мощьность конденсатора на дельту максимальных температур
-        Capacity_point = capa_cond*delta_max_temp*coef + capa_cond
+        # индексируем мощьность конденсатора на дельту максимальных температур и коэффициентов фреона и переохлаждения
+        Capacity_point = (capa_cond*delta_max_temp*coef + capa_cond)*freon_coef*cool_coef*hum_coef
         # определяем разность дельт температур конденсатора и введеной точки
         delta_delta = capa.delta_temp - new_delta_temp
         
@@ -224,8 +226,18 @@ def choose_condenser():
         Capacity_min_temp = int(request.form['min_temp'])
         Capacity_point = float(request.form['capacity'])
         Type_of_freon = request.form['freon']
+        Undercool = request.form['cool']
+        Humid = request.form['hum']
          
         #Max_noise = int(request.form['max_noise']) 
+        # Получаем коэффициент фреона из таблицы Freon
+        freon_coef = Freon.query.filter_by(name=Type_of_freon).first().coef
+
+        # Получаем коэффициент переохлаждения из таблицы Undercooling
+        cool_coef = Undercooling.query.filter_by(name=Undercool).first().coef
+
+        # Получаем коэффициент влажности из таблицы Humidity
+        hum_coef = Humidity.query.filter_by(name=Humid).first().coef
 
         # Определяем дельту введенных температур
         new_delta_temp=Capacity_max_temp - Capacity_min_temp
@@ -258,14 +270,20 @@ def choose_condenser():
                 'results' : results,
                 'cond_id' : condenser_id,
                 'freon_list': freon_list,
-                'freon': Type_of_freon
+                'freon': Type_of_freon,
+                'cool_list': cool_list,
+                'cool': Undercool,
+                'hum_list':hum_list,
+                'hum':Humid
                 }
 
     elif request.method == 'GET':
 
         context = {
             'method': 'GET',
-            'freon_list': freon_list
+            'freon_list': freon_list,
+            'cool_list': cool_list,
+            'hum_list':hum_list
         }
           
     return render_template('choose_condenser.html', **context)

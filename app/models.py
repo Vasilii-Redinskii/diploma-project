@@ -33,3 +33,12 @@ class Freon(db.Model):
     name = db.Column(db.String(128), unique=True, )
     coef = db.Column(db.Float)
     
+class Undercooling(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), unique=True, )
+    coef = db.Column(db.Float)
+
+class Humidity(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), unique=True, )
+    coef = db.Column(db.Float)
