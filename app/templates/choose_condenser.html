@@ -242,6 +242,15 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
+                                                            <label class="col-sm-2 col-form-label">&nbsp;Уровень шума</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="number" class="form-control"
+                                                                    name="noise" id="noise"
+                                                                    placeholder="Максимальный уровень шума на 10м, д(Б)А" required>
+                                                                <span class="messages"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
                                                             <label class="col-sm-2 col-form-label">&nbsp;Тип фреона</label>
                                                             <div class="col-sm-10">
                                                                 <select id="freon" name="freon" class="col-sm-2 col-form-label">
@@ -264,7 +273,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label class="col-sm-2 col-form-label">&nbsp;Относительная влажность</label>
+                                                            <label class="col-sm-2 col-form-label">&nbsp;Относительная &nbsp;влажность</label>
                                                             <div class="col-sm-10">
                                                                 <select id="hum" name="hum" class="col-sm-2 col-form-label">
                                                                     {% for x in hum_list%} 
@@ -323,10 +332,13 @@
                                                                                 <td>{{ cool }}</td>
                                                                                 <td>{{ hum }}</td>
                                                                                 <td>
+                                                                                    <a href="/condenser_detail/{{ capacity.condenser_id }}" class="hvr-shrink">
+                                                                                        Карточка<br>конденсатора
+                                                                                    </a>
                                                                                      <a href="/condenser_detail/{{ capacity.condenser_id }}" class="hvr-shrink">
                                                                                         <img src="/assets/images/condenser/{{ capacity.img }}" height="100"
                                                                                      alt="1.JPG">
-                                                                                    </a> </td>    
+                                                                                    </a> </td> 
                                                                             </tr>
                                                                             {% endfor %}
                                                                         </tbody>

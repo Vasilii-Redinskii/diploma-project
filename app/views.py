@@ -186,7 +186,7 @@ def choose_condenser():
         # определяем разность дельт температур конденсатора и введеной точки
         delta_delta = capa.delta_temp - new_delta_temp
         
-        if Capa_point <= Capacity_point:
+        if Capa_point <= Capacity_point and Condenser.query.get(capa.condenser_id).noise <= Noise_point:
         # если введеная производительность меньше производительностиконденсатора добавляем точку в список               
                             results.append({'condenser': Condenser.query.get(capa.condenser_id).name, 
                                             'img': Condenser.query.get(capa.condenser_id).img_url_1,
@@ -225,6 +225,7 @@ def choose_condenser():
         Capacity_max_temp = int(request.form['max_temp'])
         Capacity_min_temp = int(request.form['min_temp'])
         Capacity_point = float(request.form['capacity'])
+        Noise_point = int(request.form['noise'])
         Type_of_freon = request.form['freon']
         Undercool = request.form['cool']
         Humid = request.form['hum']
@@ -274,7 +275,8 @@ def choose_condenser():
                 'cool_list': cool_list,
                 'cool': Undercool,
                 'hum_list':hum_list,
-                'hum':Humid
+                'hum':Humid,
+                'noise':Noise_point
                 }
 
     elif request.method == 'GET':
