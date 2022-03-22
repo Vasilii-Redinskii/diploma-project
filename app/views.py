@@ -182,7 +182,7 @@ def choose_condenser():
         # определяем дельту введеной максимальной температуры и максимальной температуры конденсатора
         delta_max_temp = max_temp - capa.max_temp
         # индексируем мощьность конденсатора на дельту максимальных температур и коэффициентов фреона и переохлаждения
-        Capacity_point = (capa_cond*delta_max_temp*coef + capa_cond)*freon_coef*cool_coef*hum_coef
+        Capacity_point =round((capa_cond*delta_max_temp*coef + capa_cond)*freon_coef*cool_coef*hum_coef,1)
         # определяем разность дельт температур конденсатора и введеной точки
         delta_delta = capa.delta_temp - new_delta_temp
         
@@ -213,7 +213,7 @@ def choose_condenser():
         # определяем коэф дельты температур
         coef_delta = (new_delta_temp-delta_min)/(delta_max-delta_min)
         # находим производительность конденсатора при текущей дельте температур
-        capa_result = coef_delta*(capa_max-capa_min)+capa_min
+        capa_result =round(coef_delta*(capa_max-capa_min)+capa_min,2)
         # сравниваем производительность пользователя с полученной производительностью конденсатора
         add_line(Capacity_point,capa_result,Capacity_max_temp)
 
