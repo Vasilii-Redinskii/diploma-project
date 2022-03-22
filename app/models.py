@@ -15,6 +15,8 @@ class Condenser(db.Model):
     air_flow = db.Column(db.Integer)
     noise = db.Column(db.Integer)
     low_noise = db.Column(db.Boolean)
+    frenquency = db.Column(db.Float)
+    power = db.Column(db.Float)
     img_url_1 = db.Column(db.String(128))
     img_url_2 = db.Column(db.String(128))
     capacity_ = db.relationship('Capacity', backref='condenser')
