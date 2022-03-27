@@ -72,39 +72,14 @@ def condenser_detail(Condenser_id):
 
     return render_template('condenser_detail.html', **context)
 
-
-@app.route('/condenser_choosed_detail/<int:Condenser_id>/<string:Choosed_capacity>', methods=['POST', 'GET'])
-def condenser_choosed_detail(Condenser_id, Choosed_capacity):
+#Получаем расчетные параметры конкретного конденсатора
+@app.route('/condenser_choosed_detail/<int:Condenser_id>/<string:Choosed_capacity>/<int:Max_temp>/<int:Min_temp>/<int:Noise>/<string:Freon>/<int:Cool>/<string:Humidity>', methods=['POST', 'GET'])
+def condenser_choosed_detail(Condenser_id, Choosed_capacity, Max_temp, Min_temp, Noise, Freon, Cool, Humidity):
 
     condenser = Condenser.query.get(Condenser_id)
-    #capacity_list = Capacity.query.filter_by(Condenser_id = Condenser.id)
-
-    if request.method == 'POST':
-        
-        # Пришел запрос с методом POST (пользователь нажал на кнопку 'Добавить точку')
-        
-        Capacity_max_temp = request.form['max_temp']
-        Capacity_min_temp = request.form['min_temp']
-        Capacity_point = request.form['capacity']
-
-        check_name = str(condenser.id) + str(Capacity_max_temp) + str(Capacity_min_temp)
-        condenser_list = Condenser.query.all() 
-
-        # Добавляем Condenser в базу данных
-        db.session.add(Capacity(
-            condenser_id=condenser.id,
-            max_temp=Capacity_max_temp, 
-            min_temp=Capacity_min_temp,
-            capacity_point=Capacity_point,
-            delta_temp=int(Capacity_max_temp) - int(Capacity_min_temp),
-            check_name = str(condenser.id) + str(Capacity_max_temp) + str(Capacity_min_temp) + str(Capacity_point)))
-            
-        # сохраняем изменения в базе
-        db.session.commit()
-
+    
     capacity_list = Capacity.query.filter_by(condenser_id = Condenser_id)
-        #elif request.method == 'GET':
-        # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/condenser_detail
+    # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/condenser_detail
         
     context = {
         'id': condenser.id,
@@ -118,13 +93,19 @@ def condenser_choosed_detail(Condenser_id, Choosed_capacity):
         'number_fan': condenser.number_fan,
         'air_flow': condenser.air_flow,
         'noise' : condenser.noise, 
-        'low_noise' : condenser.low_noise,
         'img_url_1': condenser.img_url_1,
         'img_url_2': condenser.img_url_2,
+        'Parameter_capacity': Choosed_capacity,
+        'Parameter_max_temp': Max_temp,
+        'Parameter_min_temp': Min_temp,
+        'Parameter_noise': Noise,
+        'Parameter_freon': Freon,
+        'Parameter_cool': Cool,
+        'Parameter_humidity': Humidity,
         'capacity_list': capacity_list
         }
 
-    return render_template('condenser_detail.html', **context)
+    return render_template('condenser_choosed_detail.html', **context)
 
 
 # @app.route('/create_condenser', methods=['POST', 'GET'])

@@ -211,7 +211,7 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h5>Подбор конденсатора</h5>
-
+                                                        <!-- Вводим параметры поиска конденсатора-->
                                                     </div>
                                                     <form action="/choose_condenser" method="post">
                                                                                
@@ -300,6 +300,7 @@
                                                         <div class="table-responsive">
                                                             <div class="table-content">
                                                                 <div class="project-table">
+                                                                    <!-- Выводим полученные конденсаторы с параметрами поиска-->
                                                                     <table id="e-product-list"
                                                                         class="table table-striped dt-responsive nowrap">
                                                                         <thead>
@@ -332,7 +333,8 @@
                                                                                 <td>{{ cool }}</td>
                                                                                 <td>{{ hum }}</td>
                                                                                 <td>
-                                                                                    <form action="/condenser_choosed_detail/{{ capacity.condenser_id }}/{{ capacity.capacity }}" method="get"
+                                                                                    <!-- Переход к конкретному конденсатору с полученнымипараметрами-->
+                                                                                    <form action="/condenser_choosed_detail/{{ capacity.condenser_id }}/{{ capacity.capacity }}/{{ capacity.max_temp }}/{{ capacity.min_temp }}/{{ capacity.noise }}/{{ freon }}/{{ cool }}/{{ hum }}" method="get"
                                                                                     class="d-inline-block">
                                                                                     <button type="submit"
                                                                                         class="btn btn-outline-primary waves-effect waves-light m-r-20">
