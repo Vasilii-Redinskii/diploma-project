@@ -2,6 +2,7 @@ from app import app, db
 from app.models import Condenser, Capacity, Freon, Undercooling, Humidity
 from flask import render_template, request
 from datetime import datetime
+import os
 
 
 @app.route('/index')
@@ -10,7 +11,7 @@ def index():
     
     # Получаем все записи из таблицы Condenser
     condenser_list = Condenser.query.filter_by(low_noise = False)
-
+    
     context = {
         'condenser_list': condenser_list,
     }
@@ -49,7 +50,7 @@ def condenser_detail(Condenser_id):
 
     capacity_list = Capacity.query.filter_by(condenser_id = Condenser_id)
         #elif request.method == 'GET':
-        # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/create_Condenser
+        # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/condenser_detail
         
     context = {
         'id': condenser.id,
@@ -72,98 +73,152 @@ def condenser_detail(Condenser_id):
     return render_template('condenser_detail.html', **context)
 
 
-@app.route('/create_condenser', methods=['POST', 'GET'])
-def create_condenser():
-    
-    context = None
+@app.route('/condenser_choosed_detail/<int:Condenser_id>/<string:Choosed_capacity>', methods=['POST', 'GET'])
+def condenser_choosed_detail(Condenser_id, Choosed_capacity):
+
+    condenser = Condenser.query.get(Condenser_id)
+    #capacity_list = Capacity.query.filter_by(Condenser_id = Condenser.id)
 
     if request.method == 'POST':
         
-        # Пришел запрос с методом POST (пользователь нажал на кнопку 'Добавить Condenser')
-        # Получаем название Condenser - это значение поля input с атрибутом name="name"
-        Condenser_name = request.form['name']
-
-        # Получаем описание Condenser - это значение поля input с атрибутом name="description"
-        Condenser_description = request.form['description']
-
-        # Получаем длину Condenser - это значение поля input с атрибутом name="length"
-        Condenser_length = request.form['length']
-
-        # Получаем ширину Condenser - это значение поля input с атрибутом name="width"
-        Condenser_width = request.form['width']
-
-        # Получаем высоту Condenser - это значение поля input с атрибутом name="height"
-        Condenser_height = request.form['height']
-
-        # Получаем вес Condenser - это значение поля input с атрибутом name="weight"
-        Condenser_weight = request.form['weight']
-
-        # Получаем артикул вентилятора Condenser - это значение поля input с атрибутом name="fan"
-        Condenser_fan = request.form['fan']
-
-        # Получаем кол-во вентиляторов Condenser - это значение поля input с атрибутом name="number_fan"
-        Condenser_number_fan = request.form['number_fan']
-
-        # Получаем расход воздуха Condenser - это значение поля input с атрибутом name="air_flow"
-        Condenser_air_flow = request.form['air_flow']
-
-        # Получаем уровень шума Condenser - это значение поля input с атрибутом name="noise"
-        Condenser_noise = request.form['noise']
-
-        # Определяем малошумность Condenser - это значение поля input с атрибутом name="low_noise"
-        Condenser_low_noise = request.form['low_noise']
-        if Condenser_low_noise == 'option1':
-            Condenser_low_noise = True
-        else:
-            Condenser_low_noise = False
-        # Получаем картинки Condenser - это значение поля input с атрибутом name="img_url"
-        img_url_1 = request.form['img_url_1']  
-        img_url_2 = request.form['img_url_2']  
+        # Пришел запрос с методом POST (пользователь нажал на кнопку 'Добавить точку')
         
-        # Добавляем Condenser в базу данных
-        db.session.add(Condenser(
-            name=Condenser_name,
-            description=Condenser_description, 
-            length=Condenser_length,
-            width=Condenser_width,
-            height=Condenser_height,
-            weight=Condenser_weight,
-            fan=Condenser_fan,
-            number_fan=Condenser_number_fan,
-            air_flow=Condenser_air_flow,
-            noise=Condenser_noise, 
-            low_noise=Condenser_low_noise, 
-            img_url_1=img_url_1, 
-            img_url_2=img_url_2))
+        Capacity_max_temp = request.form['max_temp']
+        Capacity_min_temp = request.form['min_temp']
+        Capacity_point = request.form['capacity']
 
+        check_name = str(condenser.id) + str(Capacity_max_temp) + str(Capacity_min_temp)
+        condenser_list = Condenser.query.all() 
+
+        # Добавляем Condenser в базу данных
+        db.session.add(Capacity(
+            condenser_id=condenser.id,
+            max_temp=Capacity_max_temp, 
+            min_temp=Capacity_min_temp,
+            capacity_point=Capacity_point,
+            delta_temp=int(Capacity_max_temp) - int(Capacity_min_temp),
+            check_name = str(condenser.id) + str(Capacity_max_temp) + str(Capacity_min_temp) + str(Capacity_point)))
+            
         # сохраняем изменения в базе
         db.session.commit()
 
-        # Заполняем словарь контекста
-        context = {
-            'method': 'POST',
-            'name': Condenser_name,
-            'description' : Condenser_description,
-            'length': Condenser_length,
-            'width': Condenser_width,
-            'height': Condenser_height,
-            'weight': Condenser_weight,
-            'fan' : Condenser_fan,
-            'number_fan': Condenser_number_fan,
-            'air_flow': Condenser_air_flow,
-            'noise' : Condenser_noise, 
-            'low_noise' : Condenser_low_noise
+    capacity_list = Capacity.query.filter_by(condenser_id = Condenser_id)
+        #elif request.method == 'GET':
+        # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/condenser_detail
+        
+    context = {
+        'id': condenser.id,
+        'name': condenser.name,
+        'description' : condenser.description,
+        'length': condenser.length,
+        'width': condenser.width,
+        'height': condenser.height,
+        'weight': condenser.weight,
+        'fan' : condenser.fan,
+        'number_fan': condenser.number_fan,
+        'air_flow': condenser.air_flow,
+        'noise' : condenser.noise, 
+        'low_noise' : condenser.low_noise,
+        'img_url_1': condenser.img_url_1,
+        'img_url_2': condenser.img_url_2,
+        'capacity_list': capacity_list
         }
 
-    elif request.method == 'GET':
+    return render_template('condenser_detail.html', **context)
 
-        # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/create_Condenser
-        # В этом случае просто передаем в контекст имя метода и АККП по умолчанию
-        context = {
-            'method': 'GET',
-            'low_noise' : 'option1'
-        }
-    return render_template('create_condenser.html', **context)
+
+# @app.route('/create_condenser', methods=['POST', 'GET'])
+# def create_condenser():
+
+#     context = None
+
+#     if request.method == 'POST':
+
+#         # Пришел запрос с методом POST (пользователь нажал на кнопку 'Добавить Condenser')
+#         # Получаем название Condenser - это значение поля input с атрибутом name="name"
+#         Condenser_name = request.form['name']
+
+#         # Получаем описание Condenser - это значение поля input с атрибутом name="description"
+#         Condenser_description = request.form['description']
+
+#         # Получаем длину Condenser - это значение поля input с атрибутом name="length"
+#         Condenser_length = request.form['length']
+
+#         # Получаем ширину Condenser - это значение поля input с атрибутом name="width"
+#         Condenser_width = request.form['width']
+
+#         # Получаем высоту Condenser - это значение поля input с атрибутом name="height"
+#         Condenser_height = request.form['height']
+
+#         # Получаем вес Condenser - это значение поля input с атрибутом name="weight"
+#         Condenser_weight = request.form['weight']
+
+#         # Получаем артикул вентилятора Condenser - это значение поля input с атрибутом name="fan"
+#         Condenser_fan = request.form['fan']
+
+#         # Получаем кол-во вентиляторов Condenser - это значение поля input с атрибутом name="number_fan"
+#         Condenser_number_fan = request.form['number_fan']
+
+#         # Получаем расход воздуха Condenser - это значение поля input с атрибутом name="air_flow"
+#         Condenser_air_flow = request.form['air_flow']
+
+#         # Получаем уровень шума Condenser - это значение поля input с атрибутом name="noise"
+#         Condenser_noise = request.form['noise']
+
+#         # Определяем малошумность Condenser - это значение поля input с атрибутом name="low_noise"
+#         Condenser_low_noise = request.form['low_noise']
+#         if Condenser_low_noise == 'option1':
+#             Condenser_low_noise = True
+#         else:
+#             Condenser_low_noise = False
+#         # Получаем картинки Condenser - это значение поля input с атрибутом name="img_url"
+#         img_url_1 = request.form['img_url_1']
+#         img_url_2 = request.form['img_url_2']
+
+#         # Добавляем Condenser в базу данных
+#         db.session.add(Condenser(
+#             name=Condenser_name,
+#             description=Condenser_description,
+#             length=Condenser_length,
+#             width=Condenser_width,
+#             height=Condenser_height,
+#             weight=Condenser_weight,
+#             fan=Condenser_fan,
+#             number_fan=Condenser_number_fan,
+#             air_flow=Condenser_air_flow,
+#             noise=Condenser_noise,
+#             low_noise=Condenser_low_noise,
+#             img_url_1=img_url_1,
+#             img_url_2=img_url_2))
+
+#         # сохраняем изменения в базе
+#         db.session.commit()
+
+#         # Заполняем словарь контекста
+#         context = {
+#             'method': 'POST',
+#             'name': Condenser_name,
+#             'description': Condenser_description,
+#             'length': Condenser_length,
+#             'width': Condenser_width,
+#             'height': Condenser_height,
+#             'weight': Condenser_weight,
+#             'fan': Condenser_fan,
+#             'number_fan': Condenser_number_fan,
+#             'air_flow': Condenser_air_flow,
+#             'noise': Condenser_noise,
+#             'low_noise': Condenser_low_noise
+#         }
+
+#     elif request.method == 'GET':
+
+#         # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/create_Condenser
+#         # В этом случае просто передаем в контекст имя метода и АККП по умолчанию
+#         context = {
+#             'method': 'GET',
+#             'low_noise': 'option1'
+#         }
+#     return render_template('create_condenser.html', **context)
 
 
 @app.route('/choose_condenser', methods=['POST', 'GET'])
@@ -278,6 +333,7 @@ def choose_condenser():
                 'hum':Humid,
                 'noise':Noise_point
                 }
+        
 
     elif request.method == 'GET':
 

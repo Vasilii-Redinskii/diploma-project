@@ -307,7 +307,7 @@
                                                                                 <th>Конденсатор</th>
                                                                                 <th>Производ.</th>
                                                                                 <th>Температура<br>конденсации</th>
-                                                                                <th>Температура<br>наружного<br>воздуха</th>
+                                                                                <th>Температура<br>воздуха</th>
                                                                                 <th>Уровень<br>шума</th>
                                                                                 <th>Расход<br>воздуха</th>
                                                                                 <th>Тип<br>фреона</th>
@@ -323,19 +323,25 @@
                                                                                 <td class="pro-name">
                                                                                     <h6>{{ capacity.condenser }}</h6>
                                                                                 </td>
-                                                                                <td>{{ capacity.capacity }}</td>
-                                                                                <td>{{ capacity.max_temp }}</td>
-                                                                                <td>{{ capacity.min_temp }}</td>
+                                                                                <td>{{ capacity.capacity }} кВт</td>
+                                                                                <td>{{ capacity.max_temp }} &deg;С</td>
+                                                                                <td>{{ capacity.min_temp }} &deg;С</td>
                                                                                 <td>{{ capacity.noise }} д(Б)А</td>
                                                                                 <td>{{ capacity.air_flow }}</td>
                                                                                 <td>{{ freon }}</td>
                                                                                 <td>{{ cool }}</td>
                                                                                 <td>{{ hum }}</td>
                                                                                 <td>
-                                                                                    <a href="/condenser_detail/{{ capacity.condenser_id }}" class="hvr-shrink">
-                                                                                        Карточка<br>конденсатора
-                                                                                    </a>
-                                                                                     <a href="/condenser_detail/{{ capacity.condenser_id }}" class="hvr-shrink">
+                                                                                    <form action="/condenser_choosed_detail/{{ capacity.condenser_id }}/{{ capacity.capacity }}" method="get"
+                                                                                    class="d-inline-block">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-outline-primary waves-effect waves-light m-r-20">
+                                                                                        <i class="icofont icofont-edit f-16"></i>
+                                                                                        <span class="m-l-10">Карточка конденсатора</span>
+                                                                                    </button>
+                                                                                    </form>
+
+                                                                                     <a class="hvr-shrink">
                                                                                         <img src="/assets/images/condenser/{{ capacity.img }}" height="100"
                                                                                      alt="1.JPG">
                                                                                     </a> </td> 
