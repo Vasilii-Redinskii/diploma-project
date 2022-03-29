@@ -2,6 +2,7 @@ from app import app, db
 from app.models import Condenser, Capacity, Freon, Undercooling, Humidity
 from flask import render_template, request
 from datetime import datetime
+import makepdf 
 import os
 
 
@@ -79,6 +80,12 @@ def condenser_choosed_detail(Condenser_id, Choosed_capacity, Max_temp, Min_temp,
     condenser = Condenser.query.get(Condenser_id)
     
     capacity_list = Capacity.query.filter_by(condenser_id = Condenser_id)
+    
+    if request.method == 'POST':
+        
+        # Пришел запрос с методом POST (пользователь нажал на кнопку 'Сохранить в PDF')
+        save_pdf('AKN 2482', 'Condenser AKN 2482',500,600,900,1200,910,6,80,65000,48,21,60,'R404',0,40,787.2,'1.jpg','3.jpg')
+    
     # Пришел запрос с методом GET - пользователь просто открыл в браузере страницу по адресу http://127.0.0.1:5000/condenser_detail
         
     context = {
